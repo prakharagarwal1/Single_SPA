@@ -1,0 +1,21 @@
+{
+  "name": "analytics-api-server",
+  "version": "1.0.0",
+  "description": "Mock analytics API server for the analytics microfrontend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "analytics",
+    "api",
+    "mock"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
