@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useNotificationsData } from "@shared/hooks/useDashboard";
+import { useNotificationsData } from "@shared/hooks/useNotificationsData";
 import {
   BellIcon,
   CheckCircleIcon,

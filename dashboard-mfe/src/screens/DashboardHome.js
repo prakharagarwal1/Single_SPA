@@ -1,5 +1,5 @@
-import { useDashboardStats } from "@shared/hooks/useAnalytics";
-import { useProjectsData } from "@shared/hooks/useDashboard";
+import { useDashboardStats } from "@shared/hooks/useDashboardStats";
+import { useProjectsData } from "@shared/hooks/useProjectsData";
 import {
   ArrowTrendingUpIcon,
   UsersIcon,

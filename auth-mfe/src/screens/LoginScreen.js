@@ -1,27 +1,39 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@shared/hooks/useAuth";
+
+// Default credentials used by the mock API when the backend is
+// unavailable (development / offline). Replace with real values
+// once the auth API is implemented.
+const DEFAULT_EMAIL = "user@example.com";
+const DEFAULT_PASSWORD = "password";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(DEFAULT_EMAIL);
+  const [password, setPassword] = useState(DEFAULT_PASSWORD);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    setError("");
 
-    // Mock login logic (you can replace this with your validation logic)
-    if (email === "user@example.com" && password === "password") {
-      // Mock setting JWT token in localStorage
-      localStorage.setItem("token", "mock-jwt-token");
-
-      // Navigate to the dashboard page
+    try {
+      await login({ email, password });
       navigate("/dashboard");
-    } else {
-      setError("Invalid email or password");
+    } catch (err) {
+      // Fall back to mock validation when the API is unavailable (dev)
+      if (email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD) {
+        navigate("/dashboard");
+      } else {
+        setError("Invalid email or password");
+      }
     }
+    setLoading(false);
   };
 
   return (

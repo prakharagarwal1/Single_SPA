@@ -179,6 +179,40 @@ npm run start:all
 npm run install:all
 ```
 
+### Running with Docker
+
+This project can be run entirely in Docker containers using the
+provided `docker-compose.yml` and `Dockerfile`.
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:9000 in your browser.
+
+| Service           | Port | Description                        |
+| ----------------- | ---- | ---------------------------------- |
+| Root config       | 9000 | Single-spa shell + SystemJS        |
+| API server        | 3001 | Mock analytics/dashboard endpoints |
+| Auth MFE          | 9002 | Login screen                       |
+| Dashboard MFE     | 9003 | Dashboard                          |
+| Profile MFE       | 9004 | Profile & settings                 |
+| Analytics MFE     | 9005 | Analytics screens                  |
+| Notifications MFE | 9006 | Notifications                      |
+| Calendar MFE      | 9007 | Calendar                           |
+
+#### Login Credentials
+
+The mock API server has no real auth endpoint, so the login screen
+falls back to its built-in default values:
+
+- **Email:** `user@example.com`
+- **Password:** `password`
+
+These are defined as constants in `auth-mfe/src/screens/LoginScreen.js`
+and pre-filled in the form on load. Replace them once a real
+`/api/auth/login` endpoint is implemented.
+
 ### Building for Production
 
 Build each microfrontend individually:

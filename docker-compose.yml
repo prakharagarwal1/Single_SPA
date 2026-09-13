@@ -1,0 +1,135 @@
+# Single-spa monorepo
+# One service per Micro Frontend plus the mock API server.
+# Each MFE is built with webpack-dev-server so bundles are served
+# directly from their dev ports and picked up by the root config's
+# SystemJS import map.
+
+name: single-spa-base-template
+
+services:
+  # ===== Backend API (mock data) =====
+  api-server:
+    build:
+      context: api-server
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: api-server
+    container_name: api-server
+    command: node server.js
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3001/api/analytics/dashboard').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ===== Root config (shell + SystemJS) =====
+  root-config:
+    build:
+      context: root-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: root-mfe
+    container_name: root-config
+    command: npm start
+    environment:
+      - PORT=9000
+    ports:
+      - "9000:9000"
+    depends_on:
+      api-server:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+  # ===== Micro Frontends =====
+  auth-mfe:
+    build:
+      context: auth-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: auth-mfe
+    container_name: auth-mfe
+    command: npm start
+    ports:
+      - "9002:9002"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+  dashboard-mfe:
+    build:
+      context: dashboard-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: dashboard-mfe
+    container_name: dashboard-mfe
+    command: npm start
+    ports:
+      - "9003:9003"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+  profile-mfe:
+    build:
+      context: profile-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: profile-mfe
+    container_name: profile-mfe
+    command: npm start
+    ports:
+      - "9004:9004"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+  analytics-mfe:
+    build:
+      context: analytics-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: analytics-mfe
+    container_name: analytics-mfe
+    command: npm start
+    ports:
+      - "9005:9005"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+  notifications-mfe:
+    build:
+      context: notifications-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: notifications-mfe
+    container_name: notifications-mfe
+    command: npm start
+    ports:
+      - "9006:9006"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+  calendar-mfe:
+    build:
+      context: calendar-mfe
+      dockerfile: ../Dockerfile
+      args:
+        SUBDIR: calendar-mfe
+    container_name: calendar-mfe
+    command: npm start
+    ports:
+      - "9007:9007"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/app/shared
+
+networks:
+  default:
+    name: single-spa-base-template_default

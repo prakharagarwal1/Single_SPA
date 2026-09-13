@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useProfileData } from "@shared/hooks/useDashboard";
+import { useProfileData } from "@shared/hooks/useProfileData";
 import {
   UserIcon,
   EnvelopeIcon,
@@ -255,6 +255,6 @@ export const ProfileScreen = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileScreen;

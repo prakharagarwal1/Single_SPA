@@ -455,6 +455,49 @@ app.get("/api/dashboard/profile", (req, res) => {
   }, 500);
 });
 
+// Mock user store - matches the demo credentials shown on the login screen
+const mockUsers = [
+  { email: "user@example.com", password: "password", name: "Demo User" },
+];
+
+// Helper to generate a fake JWT-like token
+const generateToken = (user) => {
+  const header = Buffer.from(
+    JSON.stringify({ alg: "HS256", typ: "JWT" }),
+  ).toString("base64url");
+  const payload = Buffer.from(
+    JSON.stringify({
+      sub: user.email,
+      name: user.name,
+      email: user.email,
+      exp: Date.now() + 3600_000,
+    }),
+  ).toString("base64url");
+  return `${header}.${payload}.mock-signature`;
+};
+
+// Auth: login
+app.post("/api/auth/login", (req, res) => {
+  const { email, password } = req.body || {};
+  const user = mockUsers.find(
+    (u) => u.email === email && u.password === password,
+  );
+
+  if (!user) {
+    return res.status(401).json({ error: "Invalid email or password" });
+  }
+
+  res.json({
+    token: generateToken(user),
+    user: { email: user.email, name: user.name },
+  });
+});
+
+// Auth: logout
+app.post("/api/auth/logout", (req, res) => {
+  res.status(200).json({ message: "Logged out" });
+});
+
 app.get("/", (req, res) => {
   res.status(200).json({ data: "Hello, World!" });
 });

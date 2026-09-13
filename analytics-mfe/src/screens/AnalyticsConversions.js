@@ -1,6 +1,6 @@
 import React from "react";
 import { StatCard } from "../components/StatCard";
-import { useConversionsData } from "@shared/hooks/useAnalytics";
+import { useConversionsData } from "@shared/hooks/useConversionsData";
 import {
   CreditCardIcon,
   ShoppingCartIcon,

@@ -1,6 +1,6 @@
 import React from "react";
 import { StatCard } from "../components/StatCard";
-import { useReportsData } from "@shared/hooks/useAnalytics";
+import { useReportsData } from "@shared/hooks/useReportsData";
 import {
   ChartBarIcon,
   DocumentTextIcon,

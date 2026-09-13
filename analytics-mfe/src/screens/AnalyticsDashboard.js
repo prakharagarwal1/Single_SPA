@@ -3,7 +3,8 @@ import { StatCard } from "../components/StatCard";
 import { AreaChart } from "../components/AreaChart";
 import { BarChart } from "../components/BarChart";
 import { PieChart } from "../components/PieChart";
-import { useDashboardStats, useChartData } from "@shared/hooks/useAnalytics";
+import { useDashboardStats } from "@shared/hooks/useDashboardStats";
+import { useChartData } from "@shared/hooks/useChartData";
 import {
   ChartPieIcon,
   UsersIcon,

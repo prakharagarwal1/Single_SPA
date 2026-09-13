@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useCalendarData } from "@shared/hooks/useDashboard";
+import { useCalendarData } from "@shared/hooks/useCalendarData";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,

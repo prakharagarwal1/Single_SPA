@@ -1,6 +1,6 @@
 import React from "react";
 import { StatCard } from "../components/StatCard";
-import { useAudienceData } from "@shared/hooks/useAnalytics";
+import { useAudienceData } from "@shared/hooks/useAudienceData";
 import {
   UsersIcon,
   MapIcon,
