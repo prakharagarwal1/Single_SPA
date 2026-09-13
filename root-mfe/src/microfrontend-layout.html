@@ -1,0 +1,24 @@
+<single-spa-router>
+  <main>
+    <redirect from="/" to="/login"></redirect>
+    <redirect from="/dashboard/login" to="/login"></redirect>
+    <route path="login">
+      <application name="@codenv/auth-mfe"></application>
+    </route>
+    <route path="dashboard" exact>
+      <application name="@codenv/dashboard-mfe"></application>
+    </route>
+    <route path="analytics">
+      <application name="@codenv/analytics-mfe"></application>
+    </route>
+    <route path="profile">
+      <application name="@codenv/profile-mfe"></application>
+    </route>
+    <route path="notifications">
+      <application name="@codenv/notifications-mfe"></application>
+    </route>
+    <route path="calendar">
+      <application name="@codenv/calendar-mfe"></application>
+    </route>
+  </main>
+</single-spa-router>
